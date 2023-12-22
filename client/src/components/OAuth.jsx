@@ -14,7 +14,7 @@ export default function OAuth() {
             const auth = getAuth(app);
 
             const result = await signInWithPopup(auth, provider);
-
+            
             const res = await fetch('api/auth/google', {
               method: 'POST',
               headers: {
@@ -27,7 +27,8 @@ export default function OAuth() {
               }),
             });
             const data = await res.json();
-            dispatchEvent(signInSuccess(data));
+
+            dispatch(signInSuccess(data));
             navigate('/');
         } catch (error) {
             console.log('could not sign in with google', error);
