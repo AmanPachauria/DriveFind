@@ -25,6 +25,7 @@ export default function CreateListing() {
     discountPrice: 0,
     offer: false,
     electric: false,
+    // furnished: false,
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -62,7 +63,7 @@ export default function CreateListing() {
   const storeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app);
-      const fileName = new Date().getTime() + file.title;
+      const fileName = new Date().getTime() + file.name;
       const storageRef = ref(storage, fileName);
       const uploadTask = uploadBytesResumable(storageRef, file);
       uploadTask.on(
@@ -101,6 +102,7 @@ export default function CreateListing() {
 
     if (
       e.target.id === 'electric' ||
+    //   e.target.id === 'furnished' ||
       e.target.id === 'offer'
     ) {
       setFormData({
@@ -216,8 +218,18 @@ export default function CreateListing() {
                 onChange={handleChange}
                 checked={formData.electric}
               />
-              <span>Electric</span>
+              <span>Electric </span>
             </div>
+            {/* <div className='flex gap-2'>
+              <input
+                type='checkbox'
+                id='furnished'
+                className='w-5'
+                onChange={handleChange}
+                checked={formData.furnished}
+              />
+              <span>Furnished</span>
+            </div> */}
             <div className='flex gap-2'>
               <input
                 type='checkbox'
@@ -269,7 +281,7 @@ export default function CreateListing() {
               />
               <div className='flex flex-col items-center'>
                 <p>Regular price</p>
-                <span className='text-xs'>($ / month)</span>
+                <span className='text-xs'>(₹ / month)</span>
               </div>
             </div>
             {formData.offer && (
@@ -286,7 +298,7 @@ export default function CreateListing() {
                 />
                 <div className='flex flex-col items-center'>
                   <p>Discounted price</p>
-                  <span className='text-xs'>($ / month)</span>
+                  <span className='text-xs'>(₹ / month)</span>
                 </div>
               </div>
             )}
