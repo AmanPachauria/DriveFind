@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   getDownloadURL,
   getStorage,
@@ -111,20 +112,19 @@ export default function Profile() {
   };
 
   const handleSignOut = async () => {
-     try {
-         dispatch(signOutUserStart());
-         const res = await fetch('/api/auth/signout');
-         const data = await res.json();
-         if( data.success === false) {
-            dispatch(signOutUserFailure(data.message));
-            return;
-         }
-         dispatch(signOutUserSuccess(data));
-
-     } catch (error) {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
+      const data = await res.json();
+      if (data.success === false) {
         dispatch(signOutUserFailure(data.message));
-     }
-  }
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+    } catch (error) {
+      dispatch(signOutUserFailure(data.message));
+    }
+  };
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -185,6 +185,12 @@ export default function Profile() {
         >
           {loading ? "Loading..." : "Update"}
         </button>
+        <Link
+          className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
+          to={"/create-listing"}
+        >
+          Create Listing
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span
@@ -193,9 +199,7 @@ export default function Profile() {
         >
           Delete account
         </span>
-        <span 
-              onClick={handleSignOut} 
-              className="text-red-700 cursor-pointer">
+        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
           Sign out
         </span>
       </div>

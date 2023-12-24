@@ -22,19 +22,19 @@ const listingSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    bathrooms: {
+    mileage: {
       type: Number,
       required: true,
     },
-    bedrooms: {
+    seatingCapacity: {
       type: Number,
       required: true,
     },
-    furnished: {
-      type: Boolean,
-      required: true,
-    },
-    parking: {
+    // furnished: {
+    //   type: Boolean,
+    //   required: true,
+    // },
+    electric: {
       type: Boolean,
       required: true,
     },
