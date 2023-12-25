@@ -65,10 +65,13 @@ export const signOut = async(req, res, next) => {
 
 
 export const getUserListings = async (req, res, next) => {
+  console.log("before");
    if( req.user.id === req.params.id){
        try {
-          const listings = await Listing.find({useRef: req.params.id});
+          const listings = await Listing.find({userRef: req.params.id});
+          console.log(listings);
           res.status(200).json(listings);
+          console.log("after");
        } catch (error) {
           next(error);
        }

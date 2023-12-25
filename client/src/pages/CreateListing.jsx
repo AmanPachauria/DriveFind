@@ -15,23 +15,22 @@ export default function CreateListing() {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
-    title: '',
+    name: '',
     description: '',
     address: '',
     type: 'rent',
-    seatingCapacity: 1,
-    mileage: 1,
+    seatingCapacity: 4,
+    mileage: 10,
     regularPrice: 50,
-    discountPrice: 0,
+    discountPrice: 1,
     offer: false,
     electric: false,
-    // furnished: false,
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log(formData);
+
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
@@ -162,14 +161,14 @@ export default function CreateListing() {
         <div className='flex flex-col gap-4 flex-1'>
           <input
             type='text'
-            placeholder='Title'
+            placeholder='Name'
             className='border p-3 rounded-lg'
-            id='title'
+            id='name'
             maxLength='62'
             minLength='10'
             required
             onChange={handleChange}
-            value={formData.title}
+            value={formData.name}
           />
           <textarea
             type='text'
