@@ -38,7 +38,6 @@ export default function Profile() {
   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -101,7 +100,7 @@ export default function Profile() {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
       const data = await res.json();
       if (data.success === false) {
@@ -129,30 +128,28 @@ export default function Profile() {
     }
   };
 
-
   const handleShowListings = async () => {
     try {
-        setShowListingError(false);
-        const res = await fetch(`/api/user/listings/${currentUser._id}`);
-        const data = await res.json();
+      setShowListingError(false);
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
 
-        if( data.success === false ){
-          console.log("yes");
-          setShowListingError(true);
-          return;
-        }
+      if (data.success === false) {
+        console.log("yes");
+        setShowListingError(true);
+        return;
+      }
 
-        setUserListings(data);
-
+      setUserListings(data);
     } catch (error) {
-       setShowListingError(true);
+      setShowListingError(true);
     }
   };
-  
+
   const handleListingDelete = async (listingId) => {
     try {
       const res = await fetch(`/api/listing/delete/${listingId}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       const data = await res.json();
       if (data.success === false) {
@@ -251,51 +248,52 @@ export default function Profile() {
       </p>
 
       <button onClick={handleShowListings} className="text-green-700 w-full">
-         Show Listing
+        Show Listing
       </button>
 
       <p className="text-red-700 mt-5">
-        {showListingError ? 'Error showing listings': ''}
+        {showListingError ? "Error showing listings" : ""}
       </p>
 
-      {userListings && 
-          userListings.length > 0 && 
-            <div className="flex flex-col gap-4">
-                <h1 className="text-center mt-7 text-2xl font-semibold">
-                   Your Listing
-                </h1>
-                {userListings.map((listing) => (
-                  <div
-                    key={listing._id}
-                    className="border rounded-lg p-3 flex justify-between items-center gap-4"
-                  >
-                    <Link to={'/listing/${listing._id}'}>
-                       <img 
-                         src={listing.imageUrls[0]} 
-                         alt="listing cover" 
-                         className="h-16 w-16 object-contain" 
-                        />
-                    </Link>
-                    <Link
-                     className="text-slate-700 font-semibold hover:underline truncate flex-1"
-                     to={`/listing/${listing._id}`}
-                    >
-                     <p>{listing.name}</p>
-                    </Link>
+      {userListings && userListings.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <h1 className="text-center mt-7 text-2xl font-semibold">
+            Your Listing
+          </h1>
+          {userListings.map((listing) => (
+            <div
+              key={listing._id}
+              className="border rounded-lg p-3 flex justify-between items-center gap-4"
+            >
+              <Link to={`/listing/${listing._id}`}>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt="listing cover"
+                  className="h-16 w-16 object-contain"
+                />
+              </Link>
+              <Link
+                className="text-slate-700 font-semibold hover:underline truncate flex-1"
+                to={`/listing/${listing._id}`}
+              >
+                <p>{listing.name}</p>
+              </Link>
 
-                    <div className="flex flex-col items-center">
-                       <button
-                           onClick={() => handleListingDelete(listing._id)}
-                           className="text-red-700 uppercase" 
-                        >
-                          Delete
-                        </button>
-                       <button className="text-green-700 uppercase" >Edit</button>
-                    </div>
-
-                  </div>
-                ))}
-            </div> }
+              <div className="flex flex-col items-center">
+                <button
+                  onClick={() => handleListingDelete(listing._id)}
+                  className="text-red-700 uppercase"
+                >
+                  Delete
+                </button>
+                <Link to={`/update-listing/${listing._id}`}>
+                  <button className="text-green-700 uppercase">Edit</button>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
