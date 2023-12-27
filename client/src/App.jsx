@@ -14,7 +14,7 @@ import Search from './pages/Search';
 
 export default function App() {
   return (
-    // <div className='bg-slate-300' >
+    // <div className='bg-gray-900' >
       <BrowserRouter>
         <Header />
         <Routes>
@@ -31,6 +31,6 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    // </div>
+    //  </div>
   );
 }

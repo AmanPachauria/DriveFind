@@ -7,7 +7,6 @@ import "swiper/css/bundle";
 import {
   FaCar,
   FaGasPump,
-  FaMapMarkedAlt,
   FaMapMarkerAlt,
   FaChargingStation,
   FaShare,
@@ -63,6 +62,7 @@ export default function Listing() {
                   style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: "cover",
+                    backgroundSize: "contain",
                   }}
                 ></div>
               </SwiperSlide>
