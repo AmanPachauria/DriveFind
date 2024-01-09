@@ -29,6 +29,8 @@ export const updateUser = async (req, res, next) => {
         },
         { new: true }
       );
+
+      console.log(updatedUser)
   
       const { password, ...rest } = updatedUser._doc;
   
